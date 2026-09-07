@@ -8,6 +8,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Log global para ver cada petición que llega al servidor
+app.use((req, res, next) => {
+  console.log(`[SERVER] ${req.method} ${req.url} - Body recibido:`, req.body);
+  next();
+});
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Conectado a MongoDB'))
   .catch(err => console.error('Error al conectar:', err));
