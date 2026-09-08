@@ -31,5 +31,13 @@ router.put('/:patente', async (req, res) => {
     res.status(500).json({ error: 'Error actualizando' });
   }
 });
+router.delete('/:patente', async (req, res) => {
+  try {
+    await Auto.findOneAndDelete({ Patente: req.params.patente });
+    res.json({ mensaje: 'Auto eliminado' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar' });
+  }
+});
 
 module.exports = router;
